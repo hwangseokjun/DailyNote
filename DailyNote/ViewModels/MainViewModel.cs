@@ -21,6 +21,7 @@ namespace DailyNote.ViewModels
     {
         #region 프로퍼티
         private readonly MainNavigationStore _mainNavigationStore;
+        private readonly INavigationService _navigationService;
         private INotifyPropertyChanged _currentViewModel;
         public INotifyPropertyChanged CurrentViewModel
         {
@@ -54,7 +55,8 @@ namespace DailyNote.ViewModels
         {
             _mainNavigationStore = mainNavigationStore;
             _mainNavigationStore.CurrentViewModelChanged += CurrentViewModelChanged;
-            navigationService.Navigate(NavigationType.PostView);
+            _navigationService = navigationService;
+            _navigationService.Navigate(NavigationType.PostView);
             Categories = new ObservableCollection<Category>();
 
             // 테스트용
@@ -80,6 +82,8 @@ namespace DailyNote.ViewModels
             AddCategoryCommand = new RelayCommand(ExecuteAddCategory, CanExecuteAddCategory);
             ModifyCategoryCommand = new RelayCommand(ExecuteModifyCategory);
             DeleteCategoryCommand = new RelayCommand(ExecuteDeleteCategory);
+            ToPostViewCommand = new RelayCommand(ExecuteToPostView);
+            ToSearchViewCommand = new RelayCommand(ExecuteToSearchView);
         }
 
         private void Category_OnSelected(Category self)
@@ -110,6 +114,18 @@ namespace DailyNote.ViewModels
         private void ExecuteSelectCategory(object parameter)
         {
             Console.WriteLine($"카테고리 선택 {SelectedCategory.Name}");
+        }
+
+        public ICommand ToPostViewCommand { get; private set; }
+        private void ExecuteToPostView(object parameter)
+        {
+            _navigationService.Navigate(NavigationType.PostView);
+        }
+
+        public ICommand ToSearchViewCommand { get; private set; }
+        private void ExecuteToSearchView(object parameter)
+        {
+            _navigationService.Navigate(NavigationType.SearchView);
         }
 
         public ICommand HelpCommand { get; private set; }

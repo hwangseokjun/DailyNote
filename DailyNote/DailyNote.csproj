@@ -103,8 +103,8 @@
     <Compile Include="DataAccess\Services\INodeService.cs" />
     <Compile Include="DataAccess\Values\NodePathKey.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\Detail.cs" />
-    <Compile Include="Models\Preview.cs" />
+    <Compile Include="Models\RecordDetail.cs" />
+    <Compile Include="Models\Record.cs" />
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\NavigationType.cs" />
@@ -197,6 +197,10 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Styles\StandardDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

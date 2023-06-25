@@ -49,12 +49,17 @@ namespace DailyNote
 
             // ViewModels
             services.AddSingleton<PostViewModel>();
+            services.AddSingleton<SearchViewModel>();
             services.AddSingleton<MainViewModel>();
             
             // Views
             services.AddSingleton(s => new PostView 
             { 
                 DataContext = s.GetRequiredService<PostViewModel>()
+            });
+            services.AddSingleton(s => new SearchView 
+            { 
+                DataContext = s.GetRequiredService<SearchViewModel>()
             });
             services.AddSingleton(s => new MainView
             {

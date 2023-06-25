@@ -44,7 +44,7 @@
 
                     <TextBlock VerticalAlignment="Center" Margin="0 0 6 0">분류: </TextBlock>
                     
-                    <ComboBox ItemsSource="{Binding Categories}" MinWidth="100">
+                    <ComboBox MinWidth="100">
                     </ComboBox>
 
                     <Rectangle Width="1" Fill="#FFBFBFBF" Margin="4 4 4 4"/>
@@ -55,7 +55,7 @@
 
                     <ctrl:StandardTextBox VerticalAlignment="Center" 
                                           MinWidth="200"
-                                          PlaceHolder=""
+                                          PlaceHolder="입력"
                                           Margin="0"/>
 
                     <Rectangle Width="1" Fill="#FFBFBFBF" Margin="4 4 4 4"/>
@@ -67,7 +67,7 @@
                     <ctrl:StandardTextBox VerticalAlignment="Center" 
                                           Width="90" 
                                           Margin="0"
-                                          PlaceHolder=""/>
+                                          PlaceHolder="입력"/>
                 </ToolBar>
                 
                 <!-- Editor -->

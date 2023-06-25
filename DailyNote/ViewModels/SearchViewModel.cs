@@ -1,6 +1,8 @@
 ﻿using DailyNote.Commands;
+using DailyNote.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +12,17 @@ namespace DailyNote.ViewModels
 {
     public class SearchViewModel : ViewModelBase
     {
+
+        private ObservableCollection<Record> _records;
+        public ObservableCollection<Record> Records
+        {
+            get => _records;
+            set => SetProperty(ref _records, value);
+        }
+
         public SearchViewModel()
         {
+            Records = new ObservableCollection<Record>();
             ShowDetailsCommand = new RelayCommand(ExecuteShowDetails, CanExecuteShowDetails);
             RemoveCommand = new RelayCommand(ExecuteRemove, CanExecuteRemove);
         }

@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace DailyNote.Models
 {
-    public class Detail
+    public class Record
     {
         public int Id { get; set; }
+        public bool IsChecked { get; set; }
         public bool IsFavored { get; set; }
         public string Title { get; set; }
-        public string Contents { get; set; }
+        public string Category { get; set; }
         public DateTime RegisteredAt { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime ModifiedAt { get; set; }
     }
 }
