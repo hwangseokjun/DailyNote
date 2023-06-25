@@ -1,0 +1,167 @@
+﻿<UserControl x:Class="DailyNote.Views.PostView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DailyNote.Views"
+             xmlns:avalon="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
+             xmlns:vm="clr-namespace:DailyNote.ViewModels" 
+             xmlns:ctrl="clr-namespace:DailyNoteControls;assembly=DailyNoteControls"
+             mc:Ignorable="d" 
+             x:Name="root"
+             d:DataContext="{d:DesignInstance Type=vm:PostViewModel}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Grid>
+        <!-- TextEditor -->
+        <Border>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                                
+                <!-- Header -->
+                
+                <!-- Title -->
+                <ToolBar Grid.Row="0" Background="#FFF3F3F3">
+                    
+                    <Image Source="/Resources/Calendar_16x.png"/>
+
+                    <TextBlock VerticalAlignment="Center" Margin="0 0 6 0">등록일:</TextBlock>
+                    
+                    <DatePicker Name="datePicker" 
+                                MinWidth="120"
+                                SelectedDateFormat="Short"
+                                VerticalAlignment="Center"/>
+                    
+                    <Rectangle Width="1" Fill="#FFBFBFBF" Margin="4 4 4 4"/>
+
+                    <Image Source="/Resources/FolderOpened_16x.png"/>
+
+                    <TextBlock VerticalAlignment="Center" Margin="0 0 6 0">분류: </TextBlock>
+                    
+                    <ComboBox ItemsSource="{Binding Categories}" MinWidth="120">
+                    </ComboBox>
+
+                    <Rectangle Width="1" Fill="#FFBFBFBF" Margin="4 4 4 4"/>
+
+                    <Image Source="/Resources/Tag_16x.png"/>
+
+                    <TextBlock VerticalAlignment="Center" Margin="0 0 6 0">제목:</TextBlock>
+                    
+                    <TextBox VerticalAlignment="Center" MinWidth="180"></TextBox>
+                    
+                    <ctrl:StandardButton Command="{Binding SaveDiaryCommand}" Margin="4 0 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Save_16x.png"/>
+                            <TextBlock Text="등록" Margin="2 0 0 0"/>
+                        </StackPanel>
+                    </ctrl:StandardButton>
+                </ToolBar>
+                
+                <!-- Editor -->
+                <ToolBar Grid.Row="1" Background="#FFF3F3F3">
+                    <ctrl:StandardButton Click="OpenFileButton_Click">
+                        <Image Source="/Resources/OpenFolder_16x.png" Height="16"/>
+                    </ctrl:StandardButton>
+
+                    <ctrl:StandardButton Click="SaveFileButton_Click">
+                        <Image Source="/Resources/ExportFile_16x.png" Height="16"/>
+                    </ctrl:StandardButton>
+
+                    <Rectangle Width="1" Fill="#FFBFBFBF" Margin="4 4 4 4"/>
+
+                    <ctrl:StandardButton Command="Cut">
+                        <Image Source="/Resources/Cut_16x.png" Height="16"/>
+                    </ctrl:StandardButton>
+
+                    <ctrl:StandardButton Command="Copy">
+                        <Image Source="/Resources/Copy_16x.png" Height="16"/>
+                    </ctrl:StandardButton>
+
+                    <ctrl:StandardButton Command="Paste">
+                        <Image Source="/Resources/Paste_16x.png" Height="16"/>
+                    </ctrl:StandardButton>
+
+                    <ctrl:StandardButton Command="Delete">
+                        <Image Source="/Resources/Cancel_16x.png" Height="16"/>
+                    </ctrl:StandardButton>
+
+                    <Rectangle Width="1" Fill="#FFBFBFBF" Margin="4 4 4 4"/>
+
+                    <ctrl:StandardButton Command="Undo">
+                        <Image Source="/Resources/Undo_16x.png" Height="16"/>
+                    </ctrl:StandardButton>
+
+                    <ctrl:StandardButton Command="Redo">
+                        <Image Source="/Resources/Redo_16x.png" Height="16"/>
+                    </ctrl:StandardButton>
+
+                    <Rectangle Width="1" Fill="#FFBFBFBF" Margin="4 4 4 4"/>
+
+                    <ctrl:StandardToggleButton IsChecked="{Binding ElementName=textEditor, Path=ShowLineNumbers}" Padding="6">
+                        <Image Source="/Resources/data_number_on_16x.png" Height="16"/>
+                    </ctrl:StandardToggleButton>
+
+                    <ctrl:StandardToggleButton IsChecked="{Binding ElementName=textEditor, Path=Options.ShowTabs}" Padding="6">
+                        <Image Source="/Resources/EndPoint_16x.png" Height="16"/>
+                    </ctrl:StandardToggleButton>
+
+                    <Rectangle Width="1" Fill="#FFBFBFBF" Margin="4 4 4 4"/>
+
+                    <ctrl:StandardButton Padding="6">
+                        <Image Source="/Resources/Watch_16x.png" Height="16"/>
+                    </ctrl:StandardButton>
+
+                </ToolBar>
+
+                <!-- Body-->
+                <avalon:TextEditor Name="textEditor"
+                                   Margin="0 1 0 0"
+                                   Padding="2"
+                                   Grid.Row="2">
+                    <avalon:TextEditor.InputBindings>
+                        <KeyBinding Modifiers="Alt" Key="R" Command="{Binding SaveDiaryCommand}"/>
+                    </avalon:TextEditor.InputBindings>
+                </avalon:TextEditor>
+
+                <!-- Footer -->
+                <Border Grid.Row="3" 
+                        Background="#FFF3F3F3"
+                        Height="24"
+                        BorderThickness="0 1 0 0"
+                        BorderBrush="#FFE6E6E6">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" 
+                                   Width="120"
+                                   Text="{Binding ElementName=datePicker, Path=SelectedDate, StringFormat='yyyy년 MM월 dd일'}"
+                                   VerticalAlignment="Center"/>
+
+                        <TextBlock Name="caretInfoTextBlock" Grid.Column="1"
+                                   MinWidth="100"
+                                   VerticalAlignment="Center"
+                                   TextAlignment="Right"/>
+
+                        <TextBlock MinWidth="100"
+                                   Grid.Column="3"
+                                   VerticalAlignment="Center"
+                                   Text="마지막 수정일"
+                                   TextAlignment="Right"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+    </Grid>
+</UserControl>

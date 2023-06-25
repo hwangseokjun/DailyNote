@@ -1,0 +1,250 @@
+﻿<Window x:Class="DailyNote.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:DailyNote.Views"
+        xmlns:vm="clr-namespace:DailyNote.ViewModels" 
+        xmlns:ctrl="clr-namespace:DailyNoteControls;assembly=DailyNoteControls" 
+        xmlns:models="clr-namespace:DailyNote.Models"
+        xmlns:utils="clr-namespace:DailyNote.Utils"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+        Title="MainView" Height="450" Width="800">
+
+    <!-- Resources -->
+    <Window.Resources>
+
+        <utils:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        
+        <DataTemplate DataType="{x:Type vm:PostViewModel}">
+            <local:PostView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:ListViewModel}">
+            <local:ListView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:DetailViewModel}">
+            <local:DetailView/>
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <!-- Grid -->
+    <Grid x:Name="parent">
+        
+        <!-- SlidePanel-->
+        <ctrl:SlidePanel x:Name="slidePanel">
+            
+             <!-- Contents -->
+            <Grid Background="#FFF3F3F3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <Border Grid.Row="0" Background="#FFE6E6E6"
+                        BorderBrush="#FFBFBFBF"
+                        BorderThickness="0 0 0 1"
+                        Height="50">
+                </Border>
+                
+                <!-- Body -->
+                <ListBox Grid.Row="1" ItemsSource="{Binding Categories}"
+                         BorderBrush="Transparent">
+
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                                Background="{TemplateBinding Background}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="6"
+                                                Margin="4 2 4 2"
+                                                SnapsToDevicePixels="True">
+                                            
+                                            <ContentPresenter Margin="4"/>
+                                        </Border>
+
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#FFE6E6E6"/>
+                                                <Setter Property="BorderBrush" Value="#FFBFBFBF"/>
+                                            </Trigger>
+
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" Value="#FFBFBFBF"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderBrush" Value="#FFE6E6E6"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type models:Category}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <Image Grid.Column="0"
+                                       Source="/Resources/FolderClosed_16x.png" 
+                                       VerticalAlignment="Center" 
+                                       Height="16"
+                                       Margin="6"/>
+                                
+                                <TextBlock Grid.Column="1" 
+                                           Text="{Binding Name}" 
+                                           VerticalAlignment="Center"/>
+
+                                <ctrl:StandardButton Grid.Column="2"
+                                                     Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <Image Source="/Resources/PenFour_16x.png" Height="16" VerticalAlignment="Center"/>
+                                </ctrl:StandardButton>
+                                
+                                <ctrl:StandardButton Grid.Column="3"
+                                                     Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <Image Source="/Resources/Delete.png" Height="16" VerticalAlignment="Center"/>
+                                </ctrl:StandardButton>
+                                
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                
+                <!-- Footer -->
+                <Border Grid.Row="2" Height="50">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ctrl:StandardTextBox Grid.Column="0" BorderBrush="#FFBFBFBF"
+                                              Margin="4 4 0 4"
+                                              Text="{Binding NewCategoryName, UpdateSourceTrigger=PropertyChanged}"
+                                              PlaceHolder="새 폴더 생성하기">
+                            <ctrl:StandardTextBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding AddCategoryCommand}"/>
+                            </ctrl:StandardTextBox.InputBindings>
+                        </ctrl:StandardTextBox>
+
+                        <ctrl:StandardButton Grid.Column="1" Height="32" Width="32" Margin="6 0 12 0"
+                                             Command="{Binding AddCategoryCommand}">
+                            <Image Source="/Resources/AddFolder_16x.png" Height="16"/>
+                        </ctrl:StandardButton>
+                    </Grid>
+                </Border>
+            </Grid>
+        </ctrl:SlidePanel>
+        
+        <!-- Body -->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+<ListBox>
+                    <ListBoxItem Content="sadf"></ListBoxItem>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Black"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+
+            <Border Grid.Row="0" Background="#003F5C" Height="50">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" 
+                                Orientation="Horizontal" VerticalAlignment="Center" Margin="10 0 10 0">
+                        <Button Height="32" Width="32"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                FontWeight="Bold" 
+                                Foreground="White"
+                                Click="MenuButton_Click">
+                            <TextBlock Text="☰" TextAlignment="Center" 
+                                       VerticalAlignment="Center"
+                                       FontSize="20"/>
+                        </Button>
+                        <TextBlock Text="Daily Note" 
+                                   FontSize="20" 
+                                   Foreground="White" 
+                                   FontWeight="Bold" 
+                                   Margin="10 0 0 0"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <Grid Grid.Column="1">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <ctrl:StandardTextBox Grid.Column="0" PlaceHolder="Search Text.."/>
+                            <Image Source="/Resources/Search_16x.png" Grid.Column="0" Height="16"
+                                   HorizontalAlignment="Right"
+                                   Margin="0 0 16 0"
+                                   VerticalAlignment="Center"/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Column="2" HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal">
+                            
+                            <ctrl:RoundButton Height="32" Width="32"
+                                              CornerRadius="16"
+                                              Command="{Binding HelpCommand}">
+                                <Image Source="/Resources/Question_16x.png" Height="16" Width="16"/>
+                            </ctrl:RoundButton>
+
+                            <ctrl:RoundButton Height="32" Width="32"
+                                              CornerRadius="16">
+                                <Image Source="/Resources/Settings_16x.png" Height="16"/>
+                            </ctrl:RoundButton>
+                            
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1">
+                <ContentControl Grid.Row="1" Content="{Binding CurrentViewModel}"/>
+            </Grid>
+
+            <Grid Grid.Row="2" Background="#003F5C" Height="40">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+                    <TextBlock Text="@2023 My Company" FontSize="12" Foreground="White"/>
+                </StackPanel>
+                
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
