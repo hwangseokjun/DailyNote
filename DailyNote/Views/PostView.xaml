@@ -44,7 +44,7 @@
 
                     <TextBlock VerticalAlignment="Center" Margin="0 0 6 0">분류: </TextBlock>
                     
-                    <ComboBox ItemsSource="{Binding Categories}" MinWidth="120">
+                    <ComboBox ItemsSource="{Binding Categories}" MinWidth="100">
                     </ComboBox>
 
                     <Rectangle Width="1" Fill="#FFBFBFBF" Margin="4 4 4 4"/>
@@ -52,19 +52,27 @@
                     <Image Source="/Resources/Tag_16x.png"/>
 
                     <TextBlock VerticalAlignment="Center" Margin="0 0 6 0">제목:</TextBlock>
-                    
-                    <TextBox VerticalAlignment="Center" MinWidth="180"></TextBox>
-                    
-                    <ctrl:StandardButton Command="{Binding SaveDiaryCommand}" Margin="4 0 0 0">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Resources/Save_16x.png"/>
-                            <TextBlock Text="등록" Margin="2 0 0 0"/>
-                        </StackPanel>
-                    </ctrl:StandardButton>
+
+                    <ctrl:StandardTextBox VerticalAlignment="Center" 
+                                          MinWidth="200"
+                                          PlaceHolder=""
+                                          Margin="0"/>
+
+                    <Rectangle Width="1" Fill="#FFBFBFBF" Margin="4 4 4 4"/>
+
+                    <Image Source="/Resources/Person.png"/>
+
+                    <TextBlock VerticalAlignment="Center" Margin="0 0 6 0">담당자:</TextBlock>
+
+                    <ctrl:StandardTextBox VerticalAlignment="Center" 
+                                          Width="90" 
+                                          Margin="0"
+                                          PlaceHolder=""/>
                 </ToolBar>
                 
                 <!-- Editor -->
                 <ToolBar Grid.Row="1" Background="#FFF3F3F3">
+                    
                     <ctrl:StandardButton Click="OpenFileButton_Click">
                         <Image Source="/Resources/OpenFolder_16x.png" Height="16"/>
                     </ctrl:StandardButton>
@@ -111,12 +119,17 @@
                         <Image Source="/Resources/EndPoint_16x.png" Height="16"/>
                     </ctrl:StandardToggleButton>
 
-                    <Rectangle Width="1" Fill="#FFBFBFBF" Margin="4 4 4 4"/>
-
                     <ctrl:StandardButton Padding="6">
                         <Image Source="/Resources/Watch_16x.png" Height="16"/>
                     </ctrl:StandardButton>
 
+                    <Rectangle Width="1" Fill="#FFBFBFBF" Margin="4 4 4 4"/>
+
+                    <ctrl:StandardButton Command="{Binding SaveDiaryCommand}" Margin="4 0 0 0">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Resources/Save_16x.png"/>
+                        </StackPanel>
+                    </ctrl:StandardButton>
                 </ToolBar>
 
                 <!-- Body-->

@@ -30,8 +30,8 @@ namespace DailyNote.Services
                     CurrentViewModel = (ViewModelBase)App.Current.Services.GetService(typeof(PostViewModel));
                     break;
 
-                case NavigationType.ListView:
-                    CurrentViewModel = (ViewModelBase)App.Current.Services.GetService(typeof(ListViewModel));
+                case NavigationType.SearchView:
+                    CurrentViewModel = (ViewModelBase)App.Current.Services.GetService(typeof(SearchViewModel));
                     break;
 
                 case NavigationType.DetailView:

@@ -77,10 +77,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="StandardDataGrid.cs" />
     <Compile Include="StandardTextBox.cs" />
     <Compile Include="StandardToggleButton.cs" />
     <Compile Include="Utils\AnimationUtils.cs" />
+    <Compile Include="Utils\ShadowColorConverter.cs" />
     <Compile Include="Utils\UIElementUtils.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

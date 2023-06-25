@@ -68,6 +68,7 @@ namespace DailyNote.ViewModels
             Categories.Add(node3);
             //
 
+            SelectCategoryCommand = new RelayCommand(ExecuteSelectCategory);
             HelpCommand = new RelayCommand(ExecuteHelp);
             AddCategoryCommand = new RelayCommand(ExecuteAddCategory, CanExecuteAddCategory);
             ModifyCategoryCommand = new RelayCommand(ExecuteModifyCategory);
@@ -84,10 +85,16 @@ namespace DailyNote.ViewModels
             CurrentViewModel = _mainNavigationStore.CurrentViewModel;
         }
 
+        public ICommand SelectCategoryCommand { get; private set; }
+        private void ExecuteSelectCategory(object parameter)
+        {
+            Console.WriteLine("카테고리 선택");
+        }
+
         public ICommand HelpCommand { get; private set; }
         private void ExecuteHelp(object parameter)
         {
-            Console.WriteLine("질문 안받습니다.");
+            Console.WriteLine("질문은 안받습니다.");
         }
 
         public ICommand AddCategoryCommand { get; private set; }

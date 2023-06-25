@@ -9,7 +9,7 @@ namespace DailyNote.Services
     public enum NavigationType
     {
         PostView,
-        ListView,
+        SearchView,
         DetailView
     }
 }

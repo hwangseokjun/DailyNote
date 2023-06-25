@@ -8,9 +8,9 @@ using System.Windows.Input;
 
 namespace DailyNote.ViewModels
 {
-    public class ListViewModel : ViewModelBase
+    public class SearchViewModel : ViewModelBase
     {
-        public ListViewModel()
+        public SearchViewModel()
         {
             ShowDetailsCommand = new RelayCommand(ExecuteShowDetails, CanExecuteShowDetails);
             RemoveCommand = new RelayCommand(ExecuteRemove, CanExecuteRemove);

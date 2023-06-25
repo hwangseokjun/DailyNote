@@ -11,6 +11,15 @@ namespace DailyNoteControls
 {
     public class StandardButton : Button
     {
+        public static readonly DependencyProperty CornerRadiusProperty =
+            DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(StandardButton), new PropertyMetadata(null));
+
+        public CornerRadius CornerRadius
+        {
+            get => (CornerRadius)GetValue(CornerRadiusProperty);
+            set => SetValue(CornerRadiusProperty, value);
+        }
+
         static StandardButton()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(StandardButton),
