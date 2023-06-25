@@ -101,7 +101,9 @@
                 </Grid>
                 
                 <!-- Body -->
-                <ListBox Grid.Row="3" ItemsSource="{Binding Categories}"
+                <ListBox Grid.Row="3" 
+                         ItemsSource="{Binding Categories}" 
+                         SelectedItem="{Binding SelectedCategory}"
                          BorderBrush="Transparent">
 
                     <i:Interaction.Triggers>
@@ -166,15 +168,17 @@
                                            Text="{Binding Name}" 
                                            VerticalAlignment="Center"/>
 
-                                <ctrl:StandardButton Grid.Column="2"
-                                                     Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <ctrl:StandardToggleButton Grid.Column="2"
+                                                           Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                           IsChecked="{Binding IsModifying, Mode=TwoWay}">
                                 <Image Source="/Resources/PenFour_16x.png" Height="16" VerticalAlignment="Center"/>
-                                </ctrl:StandardButton>
-                                
-                                <ctrl:StandardButton Grid.Column="3"
-                                                     Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}">
+                                </ctrl:StandardToggleButton>
+
+                                <ctrl:StandardToggleButton Grid.Column="3"
+                                                           Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                           IsChecked="{Binding IsDeleting, Mode=TwoWay}">
                                     <Image Source="/Resources/Delete.png" Height="16" VerticalAlignment="Center"/>
-                                </ctrl:StandardButton>
+                                </ctrl:StandardToggleButton>
                                 
                             </Grid>
                         </DataTemplate>

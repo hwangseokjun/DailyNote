@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -59,10 +60,16 @@ namespace DailyNote.ViewModels
             // 테스트용
             var node1 = new Category { Id = null, Name = "2020" };
             node1.OnSelected += Category_OnSelected;
+            node1.OnModifying += Category_OnModifying;
+            node1.OnDeleting += Category_OnDeleting;
             var node2 = new Category { Id = null, Name = "2021" };
             node2.OnSelected += Category_OnSelected;
+            node2.OnModifying += Category_OnModifying;
+            node2.OnDeleting += Category_OnDeleting;
             var node3 = new Category { Id = null, Name = "2022" };
             node3.OnSelected += Category_OnSelected;
+            node3.OnModifying += Category_OnModifying;
+            node3.OnDeleting += Category_OnDeleting;
             Categories.Add(node1);
             Categories.Add(node2);
             Categories.Add(node3);
@@ -80,6 +87,20 @@ namespace DailyNote.ViewModels
             Console.WriteLine($"선택됨 {self.Name}");
         }
 
+        private void Category_OnModifying(Category self)
+        {
+            self.IsModifying = false;
+            Console.WriteLine($"수정됨 {self.Name}");
+        }
+
+        private void Category_OnDeleting(Category self)
+        {
+            self.IsDeleting = false;
+            MessageBox.Show("삭제하시겠습니까?");
+            Console.WriteLine($"삭제됨 {self.Name}");
+            Categories.Remove(self);
+        }
+
         private void CurrentViewModelChanged()
         {
             CurrentViewModel = _mainNavigationStore.CurrentViewModel;
@@ -88,7 +109,7 @@ namespace DailyNote.ViewModels
         public ICommand SelectCategoryCommand { get; private set; }
         private void ExecuteSelectCategory(object parameter)
         {
-            Console.WriteLine("카테고리 선택");
+            Console.WriteLine($"카테고리 선택 {SelectedCategory.Name}");
         }
 
         public ICommand HelpCommand { get; private set; }

@@ -28,5 +28,15 @@ namespace DailyNote.Views
         {
             slidePanel.Open();
         }
+
+        private void CategoryModifyButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void CategoryDeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
